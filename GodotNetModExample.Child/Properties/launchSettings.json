@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "GodotNetModExample.Child": {
+      "commandName": "Executable",
+      "executablePath": "%GODOT_BIN%",
+      "commandLineArgs": "--path . --verbose",
+      "workingDirectory": "."
+    }
+  }
+}
