@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://msxhxpg2r63k"]
+
+[ext_resource type="Script" path="res://Mods/GodotNetModExample.Child/SubSceneInMod.cs" id="1_kajin"]
+
+[node name="SubSceneInMod" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kajin")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Label in SubSceneInMod.tscn"
