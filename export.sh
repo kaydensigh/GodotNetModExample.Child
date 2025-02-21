@@ -21,6 +21,16 @@ PCK_PATH="$TEMP_BUILD_DIR/${PROJECT_NAME:?}.pck"
 ${GODOT_BIN:?} --headless --export-release "${EXPORT_PRESET:?}" "${PCK_PATH:?}" "${PROJECT_PATH:?}"
 cp "${PROJECT_DIR:?}/${PCK_PATH:?}" "${DESTINATION:?}"
 
-DLL_PATH=$(find "${PROJECT_DIR:?}/${TEMP_BUILD_DIR:?}/bin/ExportRelease" -name "${PROJECT_NAME:?}.dll")
-# Only copy if we find exactly one file (otherwise there might be more directories in here than we thought).
-[ $(wc -l <<< "${DLL_PATH:?}") = 1 ] && cp "${DLL_PATH:?}" "${DESTINATION:?}"
+copy_dll() {
+    DLL_PATH=$(find "${PROJECT_DIR:?}/${TEMP_BUILD_DIR:?}/bin/ExportRelease" -name $1)
+    # Only copy if we find exactly one file (otherwise there might be more directories in here than we thought).
+    [ $(wc -l <<< "${DLL_PATH:?}") = 1 ] && cp "${DLL_PATH:?}" "${DESTINATION:?}"
+}
+
+copy_dll "${PROJECT_NAME:?}.dll"
+
+IFS=$' \t\r\n'
+DEPS=$(jq -r '[ .targets | values | .. | objects | .runtime | objects | keys | add ] | unique | .[] | split("/")[-1]' "${PROJECT_DIR:?}/${TEMP_BUILD_DIR:?}/obj/project.assets.json")
+for DEP in $DEPS; do
+    copy_dll $DEP
+done
