@@ -1,10 +1,12 @@
+using System;
 using Godot;
 
 namespace GodotNetModExample.Parent.Mods.GodotNetModExample.Child;
 
 /// <summary>
 /// A class in the mod that can be instantiated from C#.
-/// This programmatically adds a scene loaded from the mod.
+/// This programmatically adds a scene loaded from the mod,
+/// and attempts to load another from the parent.
 /// </summary>
 public partial class GodotClassInMod : PanelContainer
 {
@@ -21,5 +23,28 @@ public partial class GodotClassInMod : PanelContainer
         var subscene = subscenePacked.Instantiate<SubSceneInMod>();
         subscene.Name = nameof(SubSceneInMod);
         container.AddChild(subscene);
+
+        PackedScene parentScenePacked;
+        try
+        {
+            parentScenePacked = GD.Load<PackedScene>("res://SceneInParent.tscn");
+        }
+        catch (Exception)
+        {
+            container.AddChild(new Label { Text = "Could not load SceneInParent" });
+            throw;
+        }
+        Node parentScene;
+        try
+        {
+            parentScene = parentScenePacked.Instantiate();
+        }
+        catch (Exception)
+        {
+            container.AddChild(new Label { Text = "Could not instantiate SceneInParent" });
+            throw;
+        }
+        subscene.Name = "SceneInParent";
+        container.AddChild(parentScene);
     }
 }
