@@ -2,18 +2,24 @@ using Godot;
 
 namespace GodotNetModExample.Parent.Mods.GodotNetModExample.Child;
 
-public partial class GodotClassInMod : VBoxContainer
+/// <summary>
+/// A class in the mod that can be instantiated from C#.
+/// This programmatically adds a scene loaded from the mod.
+/// </summary>
+public partial class GodotClassInMod : PanelContainer
 {
-    public string Source { get; set; }
-
     public override void _Ready()
     {
-        AddChild(new Label { Text = $"Label <- {Name} {Source}" });
+        AddThemeStyleboxOverride("panel", GD.Load<StyleBox>("res://Mods/GodotNetModExample.Child/style_box.tres"));
+
+        var container = new VBoxContainer();
+        AddChild(container);
+
+        container.AddChild(new Label { Text = nameof(GodotClassInMod) });
 
         var subscenePacked = GD.Load<PackedScene>("res://Mods/GodotNetModExample.Child/SubSceneInMod.tscn");
         var subscene = subscenePacked.Instantiate<SubSceneInMod>();
-        subscene.Name = "SubSceneInMod_GodotClassInMod";
-        subscene.Source = $"<- {Name} {Source}";
-        AddChild(subscene);
+        subscene.Name = nameof(SubSceneInMod);
+        container.AddChild(subscene);
     }
 }

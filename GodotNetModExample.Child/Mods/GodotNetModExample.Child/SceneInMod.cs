@@ -2,20 +2,17 @@ using Godot;
 
 namespace GodotNetModExample.Parent.Mods.GodotNetModExample.Child;
 
-public partial class SceneInMod : VBoxContainer
+/// <summary>
+/// Script attached to a scene resource in the mod.
+/// The scene contains a subscene from the mod.
+/// This also programmatically instantiates a non-scene class from the mod.
+/// </summary>
+public partial class SceneInMod : PanelContainer
 {
     public override void _Ready()
     {
-        AddChild(new Label()
-        {
-            Name = "Label2",
-            Text = $"Label <- {Name}",
-        });
+        var container = GetNode<Container>("Container");
 
-        AddChild(new GodotClassInMod
-        {
-            Name = "GodotClassInMod_SceneInMod",
-            Source = $"<- {Name}",
-        });
+        container.AddChild(new GodotClassInMod { Name = nameof(GodotClassInMod) });
     }
 }
