@@ -5,7 +5,6 @@ namespace GodotNetModExample.Parent.Mods.GodotNetModExample.Child;
 /// <summary>
 /// Script attached to a scene resource in the mod.
 /// The scene contains a subscene from the mod.
-/// This also programmatically instantiates a non-scene class from the mod.
 /// </summary>
 public partial class SceneInMod : PanelContainer
 {
@@ -13,6 +12,7 @@ public partial class SceneInMod : PanelContainer
     {
         var container = GetNode<Container>("Container");
 
+        // Instantiate a non-scene class from this mod.
         container.AddChild(new GodotClassInMod { Name = nameof(GodotClassInMod) });
     }
 }
