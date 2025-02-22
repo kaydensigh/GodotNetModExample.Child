@@ -12,6 +12,9 @@ grow_vertical = 2
 theme_override_styles/panel = ExtResource("1_68nw8")
 script = ExtResource("1_kajin")
 
-[node name="Label" type="Label" parent="."]
+[node name="Container" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Container"]
 layout_mode = 2
 text = "SubSceneInMod.tscn"

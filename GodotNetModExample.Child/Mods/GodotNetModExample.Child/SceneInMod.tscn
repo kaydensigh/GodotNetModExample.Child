@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bs8od1orkl1me"]
+[gd_scene load_steps=5 format=3 uid="uid://bs8od1orkl1me"]
 
 [ext_resource type="Script" path="res://Mods/GodotNetModExample.Child/SceneInMod.cs" id="1_6574g"]
 [ext_resource type="StyleBox" uid="uid://dmxehf87d6t3c" path="res://Mods/GodotNetModExample.Child/style_box.tres" id="1_l7wog"]
 [ext_resource type="PackedScene" uid="uid://msxhxpg2r63k" path="res://Mods/GodotNetModExample.Child/SubSceneInMod.tscn" id="2_niiuh"]
+[ext_resource type="PackedScene" uid="uid://dmormffcnb6ii" path="res://Shared/SceneInShared.tscn" id="4_dl0kr"]
 
 [node name="SceneInMod" type="PanelContainer"]
 anchors_preset = 15
@@ -21,4 +22,7 @@ layout_mode = 2
 text = "SceneInMod.tscn"
 
 [node name="SubSceneInMod" parent="Container" instance=ExtResource("2_niiuh")]
+layout_mode = 2
+
+[node name="SceneInShared" parent="Container" instance=ExtResource("4_dl0kr")]
 layout_mode = 2
